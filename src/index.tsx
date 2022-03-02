@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import App from "./App";
 import { theme } from "./theme";
+import "./index.css";
 
 const GlobalStyles = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -24,14 +25,16 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-  color: ${(props) => props.theme.white.lighter}
+  color: ${(props) => props.theme.white.lighter};
+  font-family: "cookie";
+  
   
 }
 * {
   box-sizing: border-box;
   background-color: ${(props) => props.theme.black.darker};
 }
-/* HTML5 display-role reset for older browsers */
+
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
