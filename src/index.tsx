@@ -22,17 +22,15 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
+	font-size: 16px;
 	font: inherit;
 	vertical-align: baseline;
   color: ${(props) => props.theme.white.lighter};
   font-family: "cookie";
-  
-  
 }
 * {
   box-sizing: border-box;
-  background-color: ${(props) => props.theme.black.darker};
+  background-color: ${(props) => props.theme.black.lighter};
 }
 
 article, aside, details, figcaption, figure, 

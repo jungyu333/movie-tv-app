@@ -7,7 +7,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2vh;
   padding: 0 5vh;
   background-color: transparent;
 `;
@@ -15,14 +14,19 @@ const Wrapper = styled.div`
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
+  background-color: transparent;
   justify-content: center;
 `;
 
 const Logo = styled(motion.div)`
   text-align: center;
+  background-color: transparent;
+  margin-top: 2vh;
   svg {
     fill: ${(props) => props.theme.red};
-    width: 10vw;
+    min-width: 8vw;
+    min-height: 3vh;
+    background-color: transparent;
     path {
       stroke: white;
       stroke-width: 0.5px;
@@ -34,6 +38,7 @@ const LogInContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
 `;
 
 function HomeHeader() {
