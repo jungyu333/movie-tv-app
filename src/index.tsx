@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { QueryClient, QueryClientProvider } from "react-query";
 import App from "./App";
 import { theme } from "./theme";
 import "./index.css";
@@ -31,8 +32,6 @@ time, mark, audio, video {
 }
 * {
   box-sizing: border-box;
-  
-
 }
 
 article, aside, details, figcaption, figure, 
@@ -41,7 +40,6 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-  height: 200vh;
  
 }
 ol, ul {
@@ -60,12 +58,16 @@ table {
 	border-spacing: 0;
 }`;
 
+const client = new QueryClient();
+
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-      <GlobalStyles />
-    </ThemeProvider>
+    <QueryClientProvider client={client}>
+      <ThemeProvider theme={theme}>
+        <App />
+        <GlobalStyles />
+      </ThemeProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

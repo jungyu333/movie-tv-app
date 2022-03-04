@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { motion, useAnimation, useViewportScroll } from "framer-motion";
 import { Link, useMatch, useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightToBracket, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 
@@ -132,6 +130,7 @@ function Header() {
   const isMovieMatch = useMatch("/movie");
   const isTvMatch = useMatch("/tv");
   const { register, handleSubmit } = useForm<IForm>();
+  const onClickLogo = () => navigation("/");
   const onsubmit = (data: IForm) => {
     navigation(`/search/${data.value}`);
   };
@@ -155,7 +154,12 @@ function Header() {
       initial={"top"}
     >
       <LogoContainer>
-        <Logo variants={logoVariants} initial="normal" whileHover="hover">
+        <Logo
+          onClick={onClickLogo}
+          variants={logoVariants}
+          initial="normal"
+          whileHover="hover"
+        >
           <motion.svg viewBox="0 0 111 30" focusable="false">
             <g>
               <path
