@@ -27,10 +27,12 @@ time, mark, audio, video {
 	vertical-align: baseline;
   color: ${(props) => props.theme.white.lighter};
   font-family: "cookie";
+  background-color: ${(props) => props.theme.black.lighter};
 }
 * {
   box-sizing: border-box;
-  background-color: ${(props) => props.theme.black.lighter};
+  
+
 }
 
 article, aside, details, figcaption, figure, 
@@ -39,6 +41,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+  height: 200vh;
+ 
 }
 ol, ul {
 	list-style: none;

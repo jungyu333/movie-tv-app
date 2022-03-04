@@ -1,5 +1,11 @@
+import Header from "../components/Header";
+
 function Tv() {
-  return <h1>Tv</h1>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 }
 
 export default Tv;

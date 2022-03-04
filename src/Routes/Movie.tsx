@@ -1,5 +1,11 @@
+import Header from "../components/Header";
+
 function Movie() {
-  return <h1>Movie</h1>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 }
 
 export default Movie;
