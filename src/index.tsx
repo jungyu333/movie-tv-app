@@ -34,13 +34,16 @@ time, mark, audio, video {
   box-sizing: border-box;
 }
 
+
+
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
 	line-height: 1;
- 
+  overflow-x: hidden;
+  
 }
 ol, ul {
 	list-style: none;
