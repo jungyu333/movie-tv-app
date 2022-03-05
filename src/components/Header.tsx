@@ -12,7 +12,7 @@ const Wrapper = styled(motion.div)`
   justify-content: space-between;
   padding: 0 2vh;
   position: fixed;
-  z-index: 2;
+  z-index: 101;
 `;
 
 const headerVariants = {

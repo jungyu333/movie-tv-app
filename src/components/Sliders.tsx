@@ -179,6 +179,7 @@ const BigMovieContainer = styled(motion.div)`
 const BigCover = styled.div`
   width: 100%;
   height: 100%;
+  border-radius: 20px;
 `;
 const offset = 6;
 function Sliders({ data, title, sliderNum, ClickSliderNum }: slidersProps) {
