@@ -10,6 +10,7 @@ import {
 } from "../api";
 import { makeVideoPath } from "../utils";
 import { motion } from "framer-motion";
+import Similar from "./Similar";
 
 const Cover = styled.div`
   position: relative;
@@ -183,6 +184,7 @@ function Detail() {
         </SubInfoContainer>
         <DetailOverview>{data?.overview}</DetailOverview>
       </InfoContainer>
+      <Similar movieId={movieId as string} />
     </>
   );
 }

@@ -180,6 +180,17 @@ const BigCover = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 20px;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 10px;
+    background-color: transparent;
+    opacity: 0.5;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.white.darker};
+    border-radius: 30px;
+    background-clip: padding-box;
+  }
 `;
 const offset = 6;
 function Sliders({ data, title, sliderNum, ClickSliderNum }: slidersProps) {

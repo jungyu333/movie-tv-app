@@ -43,6 +43,11 @@ export interface IgetMovieDetail {
   title: string;
   vote_average: number;
 }
+
+export interface IgetMovieSimilar {
+  results: IgetMoviesResults[];
+}
+
 export function getMovieNowPlaying() {
   return fetch(
     `${BASE_URL}/movie/now_playing?api_key=${API_KEY}&language=ko`
@@ -70,5 +75,11 @@ export function getVideoMovie(movieId: number) {
 export function getMovieDetail(movieId: string) {
   return fetch(
     `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=ko`
+  ).then((response) => response.json());
+}
+
+export function getMovieSimilar(movieId: string) {
+  return fetch(
+    `${BASE_URL}/movie/${movieId}/similar?api_key=${API_KEY}&language=ko`
   ).then((response) => response.json());
 }
