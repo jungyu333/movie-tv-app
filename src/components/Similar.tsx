@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { getMovieSimilar, IgetMovieSimilar } from "../api";
 import { makeImagePath } from "../utils";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface SimilarProps {
   movieId: string;
@@ -66,29 +66,28 @@ const similarBoxTitleVariants = {
 };
 
 function Similar({ movieId }: SimilarProps) {
-  const navigation = useNavigate();
   const { data } = useQuery<IgetMovieSimilar>(["Movies", "Similar"], () =>
     getMovieSimilar(movieId)
   );
 
-  const onClickSimilarBox = () => navigation(`/movie/${movieId}/detail`);
   return (
     <>
       <SimilarTitle>비슷한 컨텐츠!</SimilarTitle>
       <Container>
         {data?.results.map((movie, index) => (
-          <SimilarBox
-            onClick={onClickSimilarBox}
-            variants={similarBoxVariants}
-            initial="normal"
-            whileHover="hover"
-            key={index}
-            bgphoto={makeImagePath(movie.backdrop_path, "w500")}
-          >
-            <SimilarBoxTitle variants={similarBoxTitleVariants} key={index}>
-              {movie.title}
-            </SimilarBoxTitle>
-          </SimilarBox>
+          <Link to={`${movie.id}/detail`}>
+            <SimilarBox
+              variants={similarBoxVariants}
+              initial="normal"
+              whileHover="hover"
+              key={index}
+              bgphoto={makeImagePath(movie.backdrop_path, "w500")}
+            >
+              <SimilarBoxTitle variants={similarBoxTitleVariants} key={index}>
+                {movie.title}
+              </SimilarBoxTitle>
+            </SimilarBox>
+          </Link>
         ))}
       </Container>
     </>

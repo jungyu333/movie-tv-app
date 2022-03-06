@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import DetailPage from "./Routes/DetailPage";
 import Home from "./Routes/Home";
 import Movie from "./Routes/Movie";
 
@@ -15,6 +16,7 @@ function Router() {
         </Route>
         <Route path="/tv" element={<Tv />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/movie/:movieId/detail" element={<DetailPage />} />
       </Routes>
     </BrowserRouter>
   );

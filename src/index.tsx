@@ -32,6 +32,7 @@ time, mark, audio, video {
 }
 * {
   box-sizing: border-box;
+
 }
 
 

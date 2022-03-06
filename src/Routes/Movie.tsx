@@ -86,7 +86,7 @@ function Movie() {
   const [clickSliderNum, setClickSliderNum] = useState(0);
   const navigation = useNavigate();
   const onClickBannerInfo = () =>
-    navigation(`/movie/${nowPlayingData?.results[0].id}`);
+    navigation(`/movie/${nowPlayingData?.results[0].id}/detail`);
 
   const { data: nowPlayingData, isLoading } = useQuery<IgetMovies>(
     ["Movies", "NowPlaying"],

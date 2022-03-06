@@ -161,7 +161,7 @@ const Overlay = styled(motion.div)`
   z-index: 99;
   position: fixed;
   top: 0;
-  opacity: 0;
+  opacity: 1;
 `;
 
 const BigMovieContainer = styled(motion.div)`
@@ -179,8 +179,10 @@ const BigMovieContainer = styled(motion.div)`
 const BigCover = styled.div`
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+
   overflow-y: auto;
+  z-index: 100;
+  position: relative;
   ::-webkit-scrollbar {
     width: 10px;
     background-color: transparent;
@@ -192,6 +194,31 @@ const BigCover = styled.div`
     background-clip: padding-box;
   }
 `;
+
+const ExitButton = styled(motion.div)`
+  background-color: transparent;
+  position: absolute;
+  z-index: 100;
+  right: 2vmax;
+  top: 2vmax;
+  svg {
+    height: 2vmax;
+    fill: ${(props) => props.theme.white.darker};
+    &:hover {
+      fill: ${(props) => props.theme.white.lighter};
+    }
+  }
+`;
+
+const exitButtonVariants = {
+  normal: {
+    scale: 1,
+  },
+  hover: {
+    scale: 1.2,
+  },
+};
+
 const offset = 6;
 function Sliders({ data, title, sliderNum, ClickSliderNum }: slidersProps) {
   const navigation = useNavigate();
@@ -281,11 +308,7 @@ function Sliders({ data, title, sliderNum, ClickSliderNum }: slidersProps) {
       <AnimatePresence>
         {detailMovieMatch && ClickSliderNum === Number(sliderNum) ? (
           <>
-            <Overlay
-              onClick={onClickExit}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
+            <Overlay animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
               <BigMovieContainer
                 style={{ top: "8vh" }}
                 layoutId={detailMovieMatch.params.movieId + String(sliderNum)}
@@ -293,6 +316,19 @@ function Sliders({ data, title, sliderNum, ClickSliderNum }: slidersProps) {
                 {clickedMovie && (
                   <>
                     <BigCover>
+                      <ExitButton
+                        variants={exitButtonVariants}
+                        initial="normal"
+                        whileHover="hover"
+                        onClick={onClickExit}
+                      >
+                        <motion.svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM175 208.1L222.1 255.1L175 303C165.7 312.4 165.7 327.6 175 336.1C184.4 346.3 199.6 346.3 208.1 336.1L255.1 289.9L303 336.1C312.4 346.3 327.6 346.3 336.1 336.1C346.3 327.6 346.3 312.4 336.1 303L289.9 255.1L336.1 208.1C346.3 199.6 346.3 184.4 336.1 175C327.6 165.7 312.4 165.7 303 175L255.1 222.1L208.1 175C199.6 165.7 184.4 165.7 175 175C165.7 184.4 165.7 199.6 175 208.1V208.1z" />
+                        </motion.svg>
+                      </ExitButton>
                       <Detail />
                     </BigCover>
                   </>
