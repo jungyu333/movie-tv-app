@@ -5,6 +5,7 @@ import Movie from "./Routes/Movie";
 
 import Search from "./Routes/Search";
 import Tv from "./Routes/Tv";
+import TvDetailPage from "./Routes/TvDetailPage";
 
 function Router() {
   return (
@@ -14,9 +15,12 @@ function Router() {
         <Route path="/movie" element={<Movie />}>
           <Route path="/movie/:movieId" element={<Movie />} />
         </Route>
-        <Route path="/tv" element={<Tv />} />
+        <Route path="/tv" element={<Tv />}>
+          <Route path="/tv/:tvId" element={<Tv />} />
+        </Route>
         <Route path="/search" element={<Search />} />
         <Route path="/movie/:movieId/detail" element={<DetailPage />} />
+        <Route path="/tv/:tvId/detail" element={<TvDetailPage />} />
       </Routes>
     </BrowserRouter>
   );

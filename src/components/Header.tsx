@@ -33,6 +33,7 @@ const LogoContainer = styled.div`
 const Logo = styled(motion.div)`
   margin-right: 2vw;
   background-color: inherit;
+  cursor: pointer;
   svg {
     min-width: 5vw;
     min-height: 3vh;
@@ -101,6 +102,7 @@ const SearchContainer = styled.div`
   svg {
     height: 2vh;
     margin-right: 3vw;
+    cursor: pointer;
     &:hover {
       fill: ${(props) => props.theme.white.darker};
     }

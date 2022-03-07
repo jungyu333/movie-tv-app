@@ -1,12 +1,7 @@
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import {
-  getMovieDetail,
-  getVideoMovie,
-  IgetMovieDetail,
-  IgetVideo,
-} from "../api";
+import { getTvDetail, getTvVideo, IgetTvDetail, IgetVideo } from "../api";
 import { makeImagePath, makeVideoPath } from "../utils";
 import { motion } from "framer-motion";
 import ReactPlayer from "react-player";
@@ -202,17 +197,16 @@ const VideoContainer = styled.div`
   background-color: transparent;
 `;
 
-function DetailPage() {
+function TvDetailPage() {
   const navigation = useNavigate();
-  const { movieId } = useParams();
-  const { data: videoData } = useQuery<IgetVideo>(["Movies", "Videos"], () =>
-    getVideoMovie(Number(movieId))
+  const { tvId } = useParams();
+  const { data: videoData } = useQuery<IgetVideo>(["Tv", "Videos"], () =>
+    getTvVideo(String(tvId))
   );
-  const { data, isLoading } = useQuery<IgetMovieDetail>(
-    ["Movies", "Detail"],
-    () => getMovieDetail(String(movieId))
+  const { data, isLoading } = useQuery<IgetTvDetail>(["Tv", "Detail"], () =>
+    getTvDetail(String(tvId))
   );
-  const onClickBack = () => navigation("/movie");
+  const onClickBack = () => navigation("/tv");
   return (
     <>
       {isLoading ? (
@@ -227,7 +221,7 @@ function DetailPage() {
           ></PosterContainer>
           <Container>
             <InfoContainer>
-              <Title>{data?.title}</Title>
+              <Title>{data?.name}</Title>
               <BackButton
                 variants={backButtonVariants}
                 initial="normal"
@@ -244,7 +238,7 @@ function DetailPage() {
               <SubInfo>
                 <TagLine>{data?.tagline}</TagLine>
                 <SubInfoBox>
-                  <RunTime>{data?.runtime} min</RunTime>
+                  <RunTime>{data?.episode_run_time} min</RunTime>
                   <Vote>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -284,4 +278,4 @@ function DetailPage() {
   );
 }
 
-export default DetailPage;
+export default TvDetailPage;
