@@ -80,6 +80,7 @@ const BackButton = styled(motion.div)`
   right: 3vmax;
   width: 10vmax;
   height: 2.5vmax;
+  padding: 0.5vmax;
   background-color: transparent;
   cursor: pointer;
   border: 1px solid ${(props) => props.theme.white.darker};
@@ -206,7 +207,7 @@ function TvDetailPage() {
   const { data, isLoading } = useQuery<IgetTvDetail>(["Tv", "Detail"], () =>
     getTvDetail(String(tvId))
   );
-  const onClickBack = () => navigation("/tv");
+  const onClickBack = () => navigation(-1);
   return (
     <>
       {isLoading ? (

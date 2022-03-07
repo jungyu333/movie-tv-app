@@ -157,3 +157,15 @@ export function getTvSimilar(tvId: string) {
     `${BASE_URL}/tv/${tvId}/similar?api_key=${API_KEY}&language=ko`
   ).then((response) => response.json());
 }
+
+export function getMovieSearch(keyword: string) {
+  return fetch(
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&language=ko&query=${keyword}`
+  ).then((response) => response.json());
+}
+
+export function getTvSearch(keyword: string) {
+  return fetch(
+    `${BASE_URL}/search/tv?api_key=${API_KEY}&language=ko&query=${keyword}`
+  ).then((response) => response.json());
+}

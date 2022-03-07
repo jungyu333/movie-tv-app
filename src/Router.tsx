@@ -18,7 +18,9 @@ function Router() {
         <Route path="/tv" element={<Tv />}>
           <Route path="/tv/:tvId" element={<Tv />} />
         </Route>
-        <Route path="/search" element={<Search />} />
+        <Route path="/search" element={<Search />}>
+          <Route path="/search/:keyword" element={<Search />} />
+        </Route>
         <Route path="/movie/:movieId/detail" element={<DetailPage />} />
         <Route path="/tv/:tvId/detail" element={<TvDetailPage />} />
       </Routes>
