@@ -38,7 +38,12 @@ const LogInContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
+  background-color: ${(props) => props.theme.red};
+  width: 8vmax;
+  height: 1.5vmax;
+  padding: 1.2vmax 0.5vmax;
+  font-size: 1vmax;
+  cursor: pointer;
 `;
 
 function HomeHeader() {
@@ -64,7 +69,7 @@ function HomeHeader() {
           </svg>
         </Logo>
       </LogoContainer>
-      <LogInContainer>LogIN</LogInContainer>
+      <LogInContainer>로그인</LogInContainer>
     </Wrapper>
   );
 }

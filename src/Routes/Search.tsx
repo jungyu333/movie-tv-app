@@ -119,6 +119,10 @@ function Search() {
     navigation(`/movie/${movieId}/detail`);
   };
 
+  const onClickTvBox = (tvId: string) => {
+    navigation(`/tv/${tvId}/detail`);
+  };
+
   return (
     <>
       {isLoading ? (
@@ -169,6 +173,7 @@ function Search() {
               {tvSearchData?.results.length !== 0
                 ? tvSearchData?.results.map((tv, index) => (
                     <Box
+                      onClick={() => onClickTvBox(String(tv.id))}
                       variants={boxVariants}
                       initial="normal"
                       whileHover="hover"

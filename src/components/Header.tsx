@@ -15,15 +15,6 @@ const Wrapper = styled(motion.div)`
   z-index: 101;
 `;
 
-const headerVariants = {
-  top: {
-    backgroundColor: "rgba(0,0,0,0)",
-  },
-  scroll: {
-    backgroundColor: "rgba(0,0,0,1)",
-  },
-};
-
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
@@ -144,17 +135,16 @@ function Header() {
   useEffect(() => {
     scrollY.onChange(() => {
       if (scrollY.get() > 80) {
-        headerAnimation.start("scroll");
+        headerAnimation.start({ backgroundColor: "rgba(0,0,0,1)" });
       } else {
-        headerAnimation.start("top");
+        headerAnimation.start({ backgroundColor: "rgba(0,0,0,0)" });
       }
     });
   }, [scrollY, headerAnimation]);
   return (
     <Wrapper
-      variants={headerVariants}
       animate={headerAnimation}
-      initial={"top"}
+      initial={{ backgroundColor: "rgba(0,0,0,0)" }}
     >
       <LogoContainer>
         <Logo
