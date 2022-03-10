@@ -5,6 +5,7 @@ import { getTvDetail, getTvVideo, IgetTvDetail, IgetVideo } from "../api";
 import { makeImagePath, makeVideoPath } from "../utils";
 import { motion } from "framer-motion";
 import ReactPlayer from "react-player";
+import Loading from "../components/Loading";
 
 const Wrapper = styled.div<{ bgphoto: string }>`
   width: 100%;
@@ -211,7 +212,7 @@ function TvDetailPage() {
   return (
     <>
       {isLoading ? (
-        <div>Loding...</div>
+        <Loading />
       ) : (
         <Wrapper bgphoto={makeImagePath(String(data?.backdrop_path))}>
           <PosterContainer

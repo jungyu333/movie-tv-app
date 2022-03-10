@@ -1,32 +1,36 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 8vh;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 5vh;
-  background-color: transparent;
-`;
-
-const LogoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  background-color: transparent;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.8)
+    ),
+    url(https://assets.nflxext.com/ffe/siteui/vlv3/8607d312-c4d0-4ce2-955d-50d728ae845f/f5aa75a9-2c6e-4f3a-a83e-4624365cb04c/KR-ko-20220226-popsignuptwoweeks-perspective_alpha_website_large.jpg);
 `;
 
 const Logo = styled(motion.div)`
-  text-align: center;
   background-color: transparent;
-  margin-top: 2vh;
+  position: fixed;
+  top: 1.5vmax;
+  left: 1.5vmax;
+  height: 3vmax;
+  width: 10vmax;
+  display: flex;
+  align-items: center;
   svg {
     fill: ${(props) => props.theme.red};
-    min-width: 8vw;
-    min-height: 3vh;
+    min-width: 100%;
+    min-height: 100%;
     background-color: transparent;
     path {
       stroke: white;
@@ -36,34 +40,58 @@ const Logo = styled(motion.div)`
 `;
 
 const LogInContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${(props) => props.theme.red};
-  width: 8vmax;
-  height: 1.5vmax;
-  padding: 1.2vmax 0.5vmax;
-  font-size: 1vmax;
-  cursor: pointer;
-  a {
-    background-color: inherit;
-    text-decoration: none;
+  width: 480px;
+  height: 620px;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 70px;
+`;
+
+const LogIn = styled.h1`
+  font-weight: 600;
+  font-size: 32px;
+  background-color: rgba(0, 0, 0, 0.8);
+  margin-bottom: 30px;
+`;
+
+const FormContainer = styled.div`
+  form {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.8);
   }
 `;
 
-function HomeHeader() {
+const Input = styled.input`
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 15px 5px;
+  &:focus {
+    outline: none;
+  }
+
+  &:nth-child(3) {
+    cursor: pointer;
+    color: ${(props) => props.theme.white.lighter};
+    background-color: ${(props) => props.theme.red};
+  }
+`;
+
+interface IForm {
+  email: string;
+  password: string;
+}
+function LogInPage() {
+  const { register, handleSubmit } = useForm<IForm>();
+  const onsubmit = (data: IForm) => {
+    console.log(data.email);
+    console.log(data.password);
+    console.log(data);
+  };
+
   return (
-    <Wrapper>
-      <LogoContainer>
-        <Logo
-          animate={{
-            fillOpacity: [1, 1, 0, 0, 0, 1, 1],
-            transition: {
-              repeat: Infinity,
-              duration: 1,
-            },
-          }}
-        >
+    <>
+      <Wrapper>
+        <Logo>
           <svg viewBox="0 0 111 30" focusable="false">
             <g>
               <path
@@ -73,12 +101,32 @@ function HomeHeader() {
             </g>
           </svg>
         </Logo>
-      </LogoContainer>
-      <LogInContainer>
-        <Link to={"/login"}>로그인</Link>
-      </LogInContainer>
-    </Wrapper>
+        <LogInContainer>
+          <LogIn>로그인</LogIn>
+          <FormContainer>
+            <form onSubmit={handleSubmit(onsubmit)}>
+              <Input
+                {...register("email")}
+                type="email"
+                placeholder="이메일 주소"
+                autoComplete="off"
+              ></Input>
+              <Input
+                {...register("password", {
+                  required: "10자 이상으로 입력해주세요.",
+                })}
+                type="password"
+                placeholder="비밀번호"
+                autoComplete="off"
+              />
+              <Input type="submit" value="로그인"></Input>
+              <Link to={"/login/new"}>회원가입</Link>
+            </form>
+          </FormContainer>
+        </LogInContainer>
+      </Wrapper>
+    </>
   );
 }
 
-export default HomeHeader;
+export default LogInPage;

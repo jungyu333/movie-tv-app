@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { getMovieSearch, getTvSearch, IgetMovies, IgetTvSimilar } from "../api";
 import { motion } from "framer-motion";
 import { makeImagePath } from "../utils";
+import Loading from "../components/Loading";
 
 const BackButton = styled(motion.div)`
   width: 8vmax;
@@ -126,7 +127,7 @@ function Search() {
   return (
     <>
       {isLoading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : (
         <>
           <SearchMovieWrapper>

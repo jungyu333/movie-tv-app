@@ -12,8 +12,7 @@ import { makeImagePath } from "../utils";
 import { motion } from "framer-motion";
 import Sliders from "../components/Sliders";
 import { useState } from "react";
-
-const Loader = styled.div``;
+import Loading from "../components/Loading";
 
 const Banner = styled.div<{ bgphoto: string }>`
   width: 100%;
@@ -107,7 +106,7 @@ function Movie() {
     <>
       <Header />
       {isLoading ? (
-        <Loader>Loading...</Loader>
+        <Loading />
       ) : (
         <>
           <Banner

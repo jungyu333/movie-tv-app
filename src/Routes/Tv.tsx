@@ -12,8 +12,7 @@ import {
   IgetTvOnTheAir,
 } from "../api";
 import TvSliders from "../components/TvSliders";
-
-const Loader = styled.div``;
+import Loading from "../components/Loading";
 
 const Banner = styled.div<{ bgphoto: string }>`
   width: 100%;
@@ -107,7 +106,7 @@ function Tv() {
     <>
       <Header />
       {isLoading ? (
-        <Loader>Loading...</Loader>
+        <Loading />
       ) : (
         <>
           <Banner
