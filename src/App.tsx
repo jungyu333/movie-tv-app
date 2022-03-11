@@ -1,19 +1,27 @@
-import { User } from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Loading from "./components/Loading";
 import { auth } from "./fbase";
 import Router from "./Router";
 
 export interface IRouterProps {
-  isLogIn: User;
+  isLogIn: boolean;
 }
 
 function App() {
-  const [isLogIn, setIsLogIn] = useState(auth.currentUser);
-  return (
-    <>
-      <Router isLogIn={isLogIn as User} />
-    </>
-  );
+  const [init, setInit] = useState(false);
+  const [isLogIn, setIsLogIn] = useState(false);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLogIn(true);
+      } else {
+        setIsLogIn(false);
+      }
+      setInit(true);
+    });
+  }, []);
+  return <>{init ? <Router isLogIn={isLogIn} /> : <Loading />}</>;
 }
 
 export default App;

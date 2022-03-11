@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,6 +28,7 @@ const Logo = styled(motion.div)`
   width: 10vmax;
   display: flex;
   align-items: center;
+  cursor: pointer;
   svg {
     fill: ${(props) => props.theme.red};
     min-width: 100%;
@@ -80,19 +83,31 @@ interface IForm {
   checkpassword: string;
 }
 function NewLogInPage() {
+  const navigation = useNavigate();
   const { register, handleSubmit, formState, setError } = useForm<IForm>();
   const onsubmit = (data: IForm) => {
+    const auth = getAuth();
     if (data.password !== data.checkpassword) {
       setError("checkpassword", { message: "비밀번호가 다릅니다." });
     } else {
-      console.log("good");
+      createUserWithEmailAndPassword(auth, data.email, data.password)
+        .then((userCredential) => {
+          navigation("/login");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          if (errorCode === "auth/email-already-in-use") {
+            alert("존재하는 이메일 주소 입니다.");
+          }
+        });
     }
   };
+  const clickLogo = () => navigation("/");
 
   return (
     <>
       <Wrapper>
-        <Logo>
+        <Logo onClick={clickLogo}>
           <svg viewBox="0 0 111 30" focusable="false">
             <g>
               <path
@@ -114,7 +129,7 @@ function NewLogInPage() {
                     message: "naver 메일을 이용해주세요.",
                   },
                 })}
-                type="email"
+                type="text"
                 placeholder="이메일 주소"
                 autoComplete="off"
               ></Input>

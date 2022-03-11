@@ -1,7 +1,16 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {
+  getAuth,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+import { MouseEventHandler, ReactEventHandler } from "react";
+import { auth } from "../fbase";
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,6 +36,7 @@ const Logo = styled(motion.div)`
   width: 10vmax;
   display: flex;
   align-items: center;
+  cursor: pointer;
   svg {
     fill: ${(props) => props.theme.red};
     min-width: 100%;
@@ -76,22 +86,46 @@ const Input = styled.input`
   }
 `;
 
+const NewButton = styled.span`
+  background-color: inherit;
+  cursor: pointer;
+  margin-top: 10px;
+`;
+
 interface IForm {
   email: string;
   password: string;
 }
 function LogInPage() {
+  const navigation = useNavigate();
   const { register, handleSubmit } = useForm<IForm>();
+  const onClickLogo = () => navigation("/");
+  const onClickNewButton = () => navigation("/login/new");
   const onsubmit = (data: IForm) => {
-    console.log(data.email);
-    console.log(data.password);
-    console.log(data);
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        navigation("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        if (errorCode === "auth/user-not-found") {
+          alert("이메일을 다시 확인 해주세요.");
+        } else if (errorCode === "auth/wrong-password") {
+          alert("잘못된 비밀번호 입니다.");
+        }
+      });
+  };
+  const onClickSocial = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+    navigation("/");
   };
 
   return (
     <>
       <Wrapper>
-        <Logo>
+        <Logo onClick={onClickLogo}>
           <svg viewBox="0 0 111 30" focusable="false">
             <g>
               <path
@@ -120,7 +154,11 @@ function LogInPage() {
                 autoComplete="off"
               />
               <Input type="submit" value="로그인"></Input>
-              <Link to={"/login/new"}>회원가입</Link>
+              <NewButton onClick={onClickNewButton}>회원가입</NewButton>
+
+              <button onClick={onClickSocial} name="google">
+                구글
+              </button>
             </form>
           </FormContainer>
         </LogInContainer>

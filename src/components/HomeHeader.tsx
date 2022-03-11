@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { auth } from "../fbase";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -35,6 +36,13 @@ const Logo = styled(motion.div)`
   }
 `;
 
+const SignContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+`;
+
 const LogInContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -51,7 +59,24 @@ const LogInContainer = styled.div`
   }
 `;
 
+const LogOut = styled.span`
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme.red};
+  width: 8vmax;
+  height: 1.5vmax;
+  padding: 1.2vmax 0.5vmax;
+  font-size: 1vmax;
+  margin-left: 1vmax;
+  cursor: pointer;
+`;
+
 function HomeHeader() {
+  const onClickLogOut = () => {
+    auth.signOut();
+  };
   return (
     <Wrapper>
       <LogoContainer>
@@ -74,9 +99,16 @@ function HomeHeader() {
           </svg>
         </Logo>
       </LogoContainer>
-      <LogInContainer>
-        <Link to={"/login"}>로그인</Link>
-      </LogInContainer>
+      <SignContainer>
+        {auth.currentUser === null ? (
+          <LogInContainer>
+            <Link to={"/login"}>로그인</Link>
+          </LogInContainer>
+        ) : null}
+        {auth.currentUser !== null ? (
+          <LogOut onClick={onClickLogOut}>로그아웃</LogOut>
+        ) : null}
+      </SignContainer>
     </Wrapper>
   );
 }
