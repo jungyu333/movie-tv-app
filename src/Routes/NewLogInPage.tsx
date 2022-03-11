@@ -77,6 +77,12 @@ const Input = styled.input`
   }
 `;
 
+const Error = styled.span`
+  padding: 5px;
+  background-color: transparent;
+  font-size: 18px;
+`;
+
 interface IForm {
   email: string;
   password: string;
@@ -133,7 +139,7 @@ function NewLogInPage() {
                 placeholder="이메일 주소"
                 autoComplete="off"
               ></Input>
-              <span>{formState.errors.email?.message}</span>
+              <Error>{formState.errors.email?.message}</Error>
               <Input
                 {...register("password", {
                   required: "비밀번호를 입력해주세요.",
@@ -146,7 +152,7 @@ function NewLogInPage() {
                 placeholder="비밀번호"
                 autoComplete="off"
               />
-              <span>{formState.errors.password?.message}</span>
+              <Error>{formState.errors.password?.message}</Error>
               <Input
                 {...register("checkpassword", {
                   required: "비밀번호를 다시 한번 입력해주세요.",
@@ -155,7 +161,7 @@ function NewLogInPage() {
                 placeholder="비밀번호 확인"
                 autoComplete="off"
               ></Input>
-              <span>{formState.errors.checkpassword?.message}</span>
+              <Error>{formState.errors.checkpassword?.message}</Error>
               <Input type="submit" value="회원가입" required></Input>
             </form>
           </FormContainer>

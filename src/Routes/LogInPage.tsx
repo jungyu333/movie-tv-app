@@ -4,12 +4,10 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import {
   getAuth,
-  GithubAuthProvider,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { MouseEventHandler, ReactEventHandler } from "react";
 import { auth } from "../fbase";
 
 const Wrapper = styled.div`
@@ -79,10 +77,11 @@ const Input = styled.input`
     outline: none;
   }
 
-  &:nth-child(3) {
+  &:nth-child(5) {
     cursor: pointer;
     color: ${(props) => props.theme.white.lighter};
     background-color: ${(props) => props.theme.red};
+    font-size: 18px;
   }
 `;
 
@@ -92,13 +91,37 @@ const NewButton = styled.span`
   margin-top: 10px;
 `;
 
+const Error = styled.span`
+  padding: 5px;
+  background-color: transparent;
+  font-size: 18px;
+`;
+
+const SocialButton = styled.button`
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 300px;
+  color: white;
+  background-color: transparent;
+  margin: 20px auto;
+  svg {
+    fill: blue;
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+  }
+`;
+
 interface IForm {
   email: string;
   password: string;
 }
 function LogInPage() {
   const navigation = useNavigate();
-  const { register, handleSubmit } = useForm<IForm>();
+  const { register, handleSubmit, formState } = useForm<IForm>();
   const onClickLogo = () => navigation("/");
   const onClickNewButton = () => navigation("/login/new");
   const onsubmit = (data: IForm) => {
@@ -140,11 +163,18 @@ function LogInPage() {
           <FormContainer>
             <form onSubmit={handleSubmit(onsubmit)}>
               <Input
-                {...register("email")}
-                type="email"
+                {...register("email", {
+                  required: "이메일을 입력해주세요.",
+                  pattern: {
+                    value: /^[A-Za-z0-9._%+-]+@naver.com$/,
+                    message: "naver 메일을 이용해주세요.",
+                  },
+                })}
+                type="text"
                 placeholder="이메일 주소"
                 autoComplete="off"
-              ></Input>
+              />
+              <Error>{formState.errors.email?.message}</Error>
               <Input
                 {...register("password", {
                   required: "10자 이상으로 입력해주세요.",
@@ -153,12 +183,16 @@ function LogInPage() {
                 placeholder="비밀번호"
                 autoComplete="off"
               />
+              <Error>{formState.errors.password?.message}</Error>
               <Input type="submit" value="로그인"></Input>
               <NewButton onClick={onClickNewButton}>회원가입</NewButton>
 
-              <button onClick={onClickSocial} name="google">
-                구글
-              </button>
+              <SocialButton onClick={onClickSocial} name="google">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
+                  <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
+                </svg>
+                Sign with Google!
+              </SocialButton>
             </form>
           </FormContainer>
         </LogInContainer>
