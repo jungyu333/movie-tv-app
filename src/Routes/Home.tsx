@@ -30,16 +30,18 @@ const HomeMainTopContent = styled.div`
   padding: 0 5vh;
   h1 {
     background-color: inherit;
-    width: 100%;
+    width: 70%;
     font-size: 4vmax;
     font-weight: 600;
     text-align: center;
   }
   h2 {
+    width: 100%;
     font-size: 2vmax;
     text-align: center;
     margin-top: 5vh;
     background-color: inherit;
+    line-height: 1.2;
   }
 `;
 
@@ -47,7 +49,7 @@ const GoButton = styled.div`
   margin-top: 5vh;
   font-size: 1.7vmax;
   background-color: ${(props) => props.theme.red};
-  padding: 2vh 2.7vw;
+  padding: 1.8vmax 2.5vmax;
   cursor: pointer;
   &:hover {
     color: ${(props) => props.theme.white.darker};
@@ -69,32 +71,53 @@ const ContentContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const TextContainer = styled.div`
   background-color: #000000;
   width: 30vw;
+  @media screen and (max-width: 500px) {
+    width: 30vmax;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   h1 {
     width: 100%;
     background-color: inherit;
     font-size: 3vmax;
     font-weight: 600;
+    @media screen and (max-width: 500px) {
+      text-align: center;
+    }
   }
   p {
     width: 90%;
     font-size: 1vmax;
     background-color: inherit;
     margin-top: 3vh;
+    @media screen and (max-width: 500px) {
+      text-align: center;
+      width: 100%;
+    }
   }
 `;
 const MovieImageContainer = styled.div`
-  height: 50vh;
-  width: 30vw;
+  height: 20vmax;
+  width: 25vmax;
   background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  text-align: center;
 `;
 
 const Img = styled.img`
@@ -119,11 +142,22 @@ const TextBottomContainer = styled.div`
     width: 20vw;
     font-size: 2vmax;
     background-color: inherit;
+    @media screen and (max-width: 500px) {
+      width: 100%;
+      text-align: center;
+      margin-top: 2vmax;
+      padding: 0 2vmax;
+    }
   }
   p {
     margin-top: 2vh;
     font-size: 1.5vmax;
     background-color: inherit;
+    @media screen and (max-width: 500px) {
+      width: 100%;
+      text-align: center;
+      padding: 0 2vmax;
+    }
   }
 `;
 
