@@ -3,7 +3,7 @@ import { motion, useAnimation, useViewportScroll } from "framer-motion";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-
+import { isMobile } from "react-device-detect";
 const Wrapper = styled(motion.div)`
   width: 100%;
   height: 8vh;
@@ -13,12 +13,19 @@ const Wrapper = styled(motion.div)`
   padding: 0 2vh;
   position: fixed;
   z-index: 101;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    padding: 0 10px;
+  }
 `;
 
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   background-color: inherit;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 const Logo = styled(motion.div)`
@@ -61,6 +68,10 @@ const Menu = styled.div`
   margin: 0 1.5vw;
   text-align: center;
   background-color: inherit;
+  @media screen and (max-width: 500px) {
+    width: 20px;
+    text-align: center;
+  }
   a {
     background-color: inherit;
     text-decoration: none;
@@ -87,6 +98,7 @@ const SearchContainer = styled.div`
   position: relative;
   z-index: 1;
   background-color: inherit;
+
   form {
     background-color: inherit;
   }
@@ -96,6 +108,9 @@ const SearchContainer = styled.div`
     cursor: pointer;
     &:hover {
       fill: ${(props) => props.theme.white.darker};
+    }
+    @media screen and (max-width: 500px) {
+      display: none;
     }
   }
 `;
@@ -110,6 +125,13 @@ const Input = styled(motion.input)`
   transform-origin: center right;
   &::placeholder {
     color: ${(props) => props.theme.white.darker};
+  }
+  @media screen and (max-width: 500px) {
+    width: 90%;
+    padding: 7px;
+    &:focus {
+      outline: none;
+    }
   }
 `;
 
@@ -132,6 +154,7 @@ function Header() {
   const onClickSearch = () => {
     setSearchOpen((prev) => !prev);
   };
+
   useEffect(() => {
     scrollY.onChange(() => {
       if (scrollY.get() > 80) {
@@ -175,15 +198,24 @@ function Header() {
       </LogoContainer>
       <SearchContainer>
         <form onSubmit={handleSubmit(onsubmit)}>
-          <Input
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: searchOpen ? 1 : 0 }}
-            transition={{ type: "linear" }}
-            {...register("value")}
-            type="text"
-            placeholder="검색"
-            autoComplete="off"
-          />
+          {!isMobile ? (
+            <Input
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: searchOpen ? 1 : 0 }}
+              transition={{ type: "linear" }}
+              {...register("value")}
+              type="text"
+              placeholder="검색"
+              autoComplete="off"
+            />
+          ) : (
+            <Input
+              type="text"
+              placeholder="검색"
+              autoComplete="off"
+              {...register("value")}
+            />
+          )}
         </form>
         <motion.svg
           animate={{ x: searchOpen ? -210 : 0 }}
