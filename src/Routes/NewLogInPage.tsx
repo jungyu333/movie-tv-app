@@ -46,6 +46,13 @@ const LogInContainer = styled.div`
   height: 620px;
   background-color: rgba(0, 0, 0, 0.8);
   padding: 70px;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const LogIn = styled.h1`
