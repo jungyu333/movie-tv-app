@@ -35,6 +35,10 @@ const Logo = styled(motion.div)`
   svg {
     min-width: 5vw;
     min-height: 3vh;
+    @media screen and (max-width: 500px) {
+      width: 70px;
+      height: 100%;
+    }
   }
   path {
     fill: ${(props) => props.theme.red};
@@ -98,6 +102,9 @@ const SearchContainer = styled.div`
   position: relative;
   z-index: 1;
   background-color: inherit;
+  @media screen and (max-width: 500px) {
+    text-align: center;
+  }
 
   form {
     background-color: inherit;
@@ -129,6 +136,7 @@ const Input = styled(motion.input)`
   @media screen and (max-width: 500px) {
     width: 90%;
     padding: 7px;
+    margin: 0;
     &:focus {
       outline: none;
     }

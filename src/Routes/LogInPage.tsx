@@ -120,6 +120,9 @@ const SocialButton = styled.button`
     width: 20px;
     margin-right: 10px;
   }
+  @media screen and (max-width: 500px) {
+    width: 90%;
+  }
 `;
 
 interface IForm {

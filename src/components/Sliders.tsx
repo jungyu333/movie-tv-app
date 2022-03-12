@@ -5,6 +5,7 @@ import { useState } from "react";
 import { makeImagePath } from "../utils";
 import { useMatch, useNavigate } from "react-router-dom";
 import Detail from "./Detail";
+import { isMobile } from "react-device-detect";
 
 interface slidersProps {
   data: {
@@ -22,6 +23,9 @@ interface slidersProps {
 const Slider = styled.div`
   position: relative;
   height: 30vh;
+  @media screen and (max-width: 500px) {
+    height: 10vh;
+  }
 `;
 
 const SliderTitle = styled.h1`
@@ -43,6 +47,10 @@ const LeftButton = styled.div`
   justify-content: center;
   align-items: center;
   opacity: 0.7;
+  @media screen and (max-width: 500px) {
+    width: 2.5vmax;
+    opacity: 0.5;
+  }
   &:hover {
     opacity: 1;
     background-color: ${(props) => props.theme.black.lighter};
@@ -69,6 +77,10 @@ const RightButton = styled.div`
   justify-content: center;
   align-items: center;
   opacity: 0.7;
+  @media screen and (max-width: 500px) {
+    width: 2.5vmax;
+    opacity: 0.5;
+  }
   &:hover {
     opacity: 1;
     background-color: ${(props) => props.theme.black.lighter};
@@ -92,6 +104,11 @@ const Row = styled(motion.div)`
   position: absolute;
   width: 100%;
   background-color: black;
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(4, 1fr);
+    height: 10vh;
+    margin: 0;
+  }
 `;
 
 const rowVariants = {
@@ -119,6 +136,9 @@ const Box = styled(motion.div)<{ bgphoto: string }>`
   &:last-child {
     transform-origin: center right;
   }
+  @media screen and (max-width: 500px) {
+    height: 10vh;
+  }
 `;
 
 const boxVariants = {
@@ -143,6 +163,12 @@ const BoxTitle = styled(motion.div)`
   align-items: center;
   text-align: center;
   opacity: 0;
+  @media screen and (max-width: 500px) {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 10%;
+    font-size: 10px;
+  }
 `;
 
 const boxTitleVariants = {
@@ -220,6 +246,7 @@ const exitButtonVariants = {
 };
 
 const offset = 6;
+const mobileOffset = 4;
 function Sliders({ data, title, sliderNum, ClickSliderNum }: slidersProps) {
   const navigation = useNavigate();
   const [index, setIndex] = useState(0);
@@ -259,52 +286,108 @@ function Sliders({ data, title, sliderNum, ClickSliderNum }: slidersProps) {
 
   return (
     <>
-      <Slider>
-        <SliderTitle>{title}</SliderTitle>
-        <LeftButton onClick={increaseIndex}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
-            <path d="M192 448c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l137.4 137.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448z" />
-          </svg>
-        </LeftButton>
-        <AnimatePresence
-          custom={back}
-          initial={false}
-          onExitComplete={toggleLeaving}
-        >
-          <Row
+      {!isMobile ? (
+        <Slider>
+          <SliderTitle>{title}</SliderTitle>
+          <LeftButton onClick={increaseIndex}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
+              <path d="M192 448c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l137.4 137.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448z" />
+            </svg>
+          </LeftButton>
+          <AnimatePresence
             custom={back}
-            key={index}
-            transition={{ type: "tween", duration: 1 }}
-            variants={rowVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
+            initial={false}
+            onExitComplete={toggleLeaving}
           >
-            {data?.results
-              .slice(1)
-              .slice(offset * index, offset * index + offset)
-              .map((movie) => (
-                <Box
-                  layoutId={movie.id + "" + String(sliderNum)}
-                  onClick={() => onClickkBox(movie.id)}
-                  variants={boxVariants}
-                  initial="normal"
-                  whileHover="hover"
-                  key={movie.id + sliderNum}
-                  transition={{ type: "linear" }}
-                  bgphoto={makeImagePath(movie.backdrop_path, "w500")}
-                >
-                  <BoxTitle variants={boxTitleVariants}>{movie.title}</BoxTitle>
-                </Box>
-              ))}
-          </Row>
-        </AnimatePresence>
-        <RightButton onClick={decreaseIndex}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
-            <path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
-          </svg>
-        </RightButton>
-      </Slider>
+            <Row
+              custom={back}
+              key={index}
+              transition={{ type: "tween", duration: 1 }}
+              variants={rowVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              {data?.results
+                .slice(1)
+                .slice(offset * index, offset * index + offset)
+                .map((movie) => (
+                  <Box
+                    layoutId={movie.id + "" + String(sliderNum)}
+                    onClick={() => onClickkBox(movie.id)}
+                    variants={boxVariants}
+                    initial="normal"
+                    whileHover="hover"
+                    key={movie.id + sliderNum}
+                    transition={{ type: "linear" }}
+                    bgphoto={makeImagePath(movie.backdrop_path, "w500")}
+                  >
+                    <BoxTitle variants={boxTitleVariants}>
+                      {movie.title}
+                    </BoxTitle>
+                  </Box>
+                ))}
+            </Row>
+          </AnimatePresence>
+          <RightButton onClick={decreaseIndex}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
+              <path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
+            </svg>
+          </RightButton>
+        </Slider>
+      ) : (
+        <Slider>
+          <SliderTitle>{title}</SliderTitle>
+          <LeftButton onClick={increaseIndex}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
+              <path d="M192 448c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l137.4 137.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448z" />
+            </svg>
+          </LeftButton>
+          <AnimatePresence
+            custom={back}
+            initial={false}
+            onExitComplete={toggleLeaving}
+          >
+            <Row
+              custom={back}
+              key={index}
+              transition={{ type: "tween", duration: 1 }}
+              variants={rowVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              {data?.results
+                .slice(1)
+                .slice(
+                  mobileOffset * index,
+                  mobileOffset * index + mobileOffset
+                )
+                .map((movie) => (
+                  <Box
+                    layoutId={movie.id + "" + String(sliderNum)}
+                    onClick={() => onClickkBox(movie.id)}
+                    variants={boxVariants}
+                    initial="normal"
+                    whileHover="hover"
+                    key={movie.id + sliderNum}
+                    transition={{ type: "linear" }}
+                    bgphoto={makeImagePath(movie.backdrop_path, "w500")}
+                  >
+                    <BoxTitle variants={boxTitleVariants}>
+                      {movie.title}
+                    </BoxTitle>
+                  </Box>
+                ))}
+            </Row>
+          </AnimatePresence>
+          <RightButton onClick={decreaseIndex}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
+              <path d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z" />
+            </svg>
+          </RightButton>
+        </Slider>
+      )}
       <AnimatePresence>
         {detailMovieMatch && ClickSliderNum === Number(sliderNum) ? (
           <>

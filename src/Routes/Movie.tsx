@@ -80,6 +80,10 @@ const InfoBax = styled(motion.div)`
   @media screen and (max-width: 500px) {
     margin: 1vmax 0;
     text-align: center;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   svg {
     height: 1.3vmax;
@@ -90,6 +94,9 @@ const InfoBax = styled(motion.div)`
     font-size: 1.2vmax;
     background-color: transparent;
     width: 5vmax;
+    @media screen and (max-width: 500px) {
+      width: 100%;
+    }
   }
 `;
 
