@@ -196,6 +196,11 @@ const BigMovieContainer = styled(motion.div)`
   margin: 0 auto;
   border-radius: 20px;
   background-color: ${(props) => props.theme.black.lighter};
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    height: 100%;
+    position: static;
+  }
 `;
 
 const BigCover = styled.div`

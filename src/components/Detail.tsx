@@ -11,6 +11,7 @@ import {
 import { makeImagePath, makeVideoPath } from "../utils";
 import { motion } from "framer-motion";
 import Similar from "./Similar";
+import { isMobile } from "react-device-detect";
 
 const Cover = styled.div`
   position: relative;
@@ -23,6 +24,9 @@ const SubCover = styled.div<{ bgphoto: string }>`
   background-image: url(${(props) => props.bgphoto});
   background-size: cover;
   background-position: center center;
+  @media screen and (max-width: 500px) {
+    height: 40vmax;
+  }
 `;
 
 const TitleBox = styled.div`
@@ -33,6 +37,9 @@ const TitleBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  @media screen and (max-width: 500px) {
+    padding: 0 10px;
+  }
 `;
 
 const DetailTitle = styled.h1`
@@ -44,6 +51,7 @@ const DetailTitle = styled.h1`
 const IconBox = styled.div`
   margin-top: 2vh;
   position: relative;
+
   svg {
     margin-right: 1vmax;
     height: 3.8vh;
@@ -60,6 +68,9 @@ const IconBox = styled.div`
 
 const InfoContainer = styled.div`
   margin: 1.5vh 1vw;
+  @media screen and (max-width: 500px) {
+    padding: 0 10px;
+  }
 `;
 
 const SubInfoContainer = styled.div`
@@ -117,10 +128,17 @@ const DetailOverview = styled.p`
   line-height: 1.2;
   height: 15vh;
   overflow-y: auto;
+  @media screen and (max-width: 500px) {
+    font-size: 1.2vmax;
+    line-height: 1.5;
+  }
   ::-webkit-scrollbar {
     width: 10px;
     background-color: transparent;
     opacity: 0.5;
+    @media screen and (max-width: 500px) {
+      width: 10px;
+    }
   }
   ::-webkit-scrollbar-thumb {
     background-color: ${(props) => props.theme.white.darker};
@@ -147,7 +165,7 @@ function Detail() {
               playing={true}
               loop={true}
               width="100%"
-              height="20vmax"
+              height={!isMobile ? "20vmax" : "35vmax"}
               controls={false}
               light={false}
               url={makeVideoPath(String(videoData?.results[0].key))}

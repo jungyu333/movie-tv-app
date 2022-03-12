@@ -200,19 +200,29 @@ const BigMovieContainer = styled(motion.div)`
   margin: 0 auto;
   border-radius: 20px;
   background-color: ${(props) => props.theme.black.lighter};
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    height: 100%;
+    position: static;
+  }
 `;
 
 const BigCover = styled.div`
   width: 100%;
   height: 100%;
-
   overflow-y: auto;
   z-index: 100;
   position: relative;
+  @media screen and (max-width: 500px) {
+    overflow-y: auto;
+  }
   ::-webkit-scrollbar {
     width: 10px;
     background-color: transparent;
     opacity: 0.5;
+    @media screen and (max-width: 500px) {
+      width: 5px;
+    }
   }
   ::-webkit-scrollbar-thumb {
     background-color: ${(props) => props.theme.white.darker};
