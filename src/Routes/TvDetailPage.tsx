@@ -111,8 +111,8 @@ const BackButton = styled(motion.div)`
   border: 1px solid ${(props) => props.theme.white.darker};
   @media screen and (max-width: 500px) {
     top: 10px;
-    width: min-content;
-    right: 10px;
+    width: 40px;
+    right: 0.5vmax;
     border: none;
     padding: 0;
   }
@@ -120,9 +120,6 @@ const BackButton = styled(motion.div)`
     height: 100%;
     width: 100%;
     fill: ${(props) => props.theme.white.darker};
-    @media screen and (max-width: 500px) {
-      width: min-content;
-    }
   }
 `;
 
