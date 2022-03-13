@@ -17,6 +17,7 @@ const BackButton = styled(motion.div)`
   position: absolute;
   right: 2vmax;
   cursor: pointer;
+
   svg {
     height: 2vmax;
     width: 2vmax;
@@ -51,6 +52,9 @@ const SearchContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 15px;
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 const Box = styled(motion.div)<{ bgphoto: string }>`
