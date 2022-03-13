@@ -214,6 +214,9 @@ const BigCover = styled.div`
     width: 10px;
     background-color: transparent;
     opacity: 0.5;
+    @media screen and (max-width: 500px) {
+      width: 5px;
+    }
   }
   ::-webkit-scrollbar-thumb {
     background-color: ${(props) => props.theme.white.darker};
