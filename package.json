@@ -17,6 +17,7 @@
     "@types/react-dom": "^17.0.12",
     "firebase": "^9.6.8",
     "framer-motion": "^6.2.8",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-device-detect": "^2.1.2",
     "react-dom": "^17.0.2",
@@ -37,7 +38,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -59,5 +62,6 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.24"
-  }
+  },
+  "homepage": "https://jungyu333.github.io/movie-tv-app"
 }

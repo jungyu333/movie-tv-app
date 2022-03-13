@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  HashRouter,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 import { IRouterProps } from "./App";
 import DetailPage from "./Routes/DetailPage";
 import Home from "./Routes/Home";
@@ -11,7 +17,7 @@ import TvDetailPage from "./Routes/TvDetailPage";
 
 function Router({ isLogIn }: IRouterProps) {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <>
@@ -78,7 +84,7 @@ function Router({ isLogIn }: IRouterProps) {
           <Route path="/login/new" element={<NewLogInPage />} />
         </>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

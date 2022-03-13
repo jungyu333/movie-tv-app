@@ -114,6 +114,7 @@ const SocialButton = styled.button`
   color: white;
   background-color: transparent;
   margin: 20px auto;
+  cursor: pointer;
   svg {
     fill: blue;
     height: 20px;
