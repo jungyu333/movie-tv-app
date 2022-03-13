@@ -117,7 +117,7 @@ const BackButton = styled(motion.div)`
   @media screen and (max-width: 500px) {
     top: 10px;
     width: min-content;
-    right: 10px;
+    right: 1vmax;
     border: none;
     padding: 0;
   }
