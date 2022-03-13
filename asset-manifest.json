@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/movie-tv-app/%20/static/css/main.50c947a2.css",
+    "main.js": "/movie-tv-app/%20/static/js/main.df402a0b.js",
+    "static/media/CookieRun Regular.ttf": "/movie-tv-app/%20/static/media/CookieRun Regular.52560075f5d887966bf2.ttf",
+    "index.html": "/movie-tv-app/%20/index.html",
+    "main.50c947a2.css.map": "/movie-tv-app/%20/static/css/main.50c947a2.css.map",
+    "main.df402a0b.js.map": "/movie-tv-app/%20/static/js/main.df402a0b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.50c947a2.css",
+    "static/js/main.df402a0b.js"
+  ]
+}
