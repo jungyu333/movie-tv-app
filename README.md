@@ -24,9 +24,52 @@ React를 이용하여 넷플릭스와 비슷한 영화나 Tv 프로그램의 정
 ### <li>Movie & Tv</li>
 <img src="https://user-images.githubusercontent.com/96876293/158062693-678f8558-705f-48b6-b8bc-1e5dc1f67da2.png"  width="60%" height="60%"/><br/>
 메인 페이지의 경우 API 데이터들을 **React Query**를 활용하여 가져 왔습니다.<br/>
+``` javaScript
+ const { data: nowPlayingData, isLoading } = useQuery<IgetMovies>(
+    ["Movies", "NowPlaying"],
+    getMovieNowPlaying
+  );
+
+  const { data: upComingData } = useQuery<IgetMovies>(
+    ["Movies", "Upcoming"],
+    getUpcomingMovie
+  );
+
+  const { data: topRatedData } = useQuery<IgetMovies>(
+    ["Movies", "TopRated"],
+    getTopRatedMovie
+  );
+```
+
 
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/96876293/158105968-381a5c6a-935c-457b-8a24-5dec8536cca8.gif)<br/>
 각 페이지의 영화 목록들 같은 경우 **framer motion**을 활용하여 슬라이더를 구현 하였고<br/>또한 slider 부분을 따로 컴포넌트화 하여 재사용성을 높여보았습니다.<br/>
+``` javaScript
+  <SliderWrapper onClick={() => setClickSliderNum(1)}>
+            <Sliders
+              data={nowPlayingData as IgetMovies}
+              title="극장에서 상영 중!"
+              sliderNum="1"
+              ClickSliderNum={clickSliderNum}
+            />
+          </SliderWrapper>
+          <SliderWrapper onClick={() => setClickSliderNum(2)}>
+            <Sliders
+              data={upComingData as IgetMovies}
+              title="곧 만나요 우리!"
+              sliderNum="2"
+              ClickSliderNum={clickSliderNum}
+            />
+          </SliderWrapper>
+          <SliderWrapper onClick={() => setClickSliderNum(3)}>
+            <Sliders
+              data={topRatedData as IgetMovies}
+              title="최고 인기작!"
+              sliderNum="3"
+              ClickSliderNum={clickSliderNum}
+            />
+          </SliderWrapper>
+```
 
 
 ### <li>Detail</li>
@@ -48,9 +91,9 @@ prop으로 넘겨 받은 Id 를 API 호출에 쿼리 값으로 사용하여 비�
 
 ## :question: Problems?
 <br/><li>Slider & TvSlider</li><br/>
- Slider components 와 TvSlider components 의 코드 구조는 동일하고 단지 다른 것은 API를 호출 할 때 받아오는 데이터의 키가 조금 다르다는 것 밖에 없다. <br/>
- 만약 코드 구조는 같지만 키가 조금 달라 유사한 API를 호출 하는 components 들을 하나의 components로 만들 수 있다면 <br/>유지 보수의 측면에서 훨씬 효율이 높아질 것 같았다.<br/>
- Detail & TvDetail , Similar & TvSimilar components, DetailPage & TvDetailPage 들도 같은 이유이다.<br/>
+ Slider components 와 TvSlider components 의 코드 구조는 동일하고 단지 다른 것은 API를 호출 할 때 받아오는 데이터의 키가 조금 다르다는 것 밖에 없습니다. <br/>
+ 만약 코드 구조는 같지만 키가 조금 달라 유사한 API를 호출 하는 components 들을 하나의 components로 만들 수 있다면 <br/>유지 보수의 측면에서 훨씬 효율이 높아질 것 같았습니다.<br/>
+ Detail & TvDetail , Similar & TvSimilar components, DetailPage & TvDetailPage 들도 같은 이유입니다.<br/>
 
 ## :file_folder: Directory
 ```bash
